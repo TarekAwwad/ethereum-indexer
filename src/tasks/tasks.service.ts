@@ -72,11 +72,14 @@ export class TasksService {
     let total = 0;
     const chzContract = this.configService.get('CHZ_CONTRACT_ADDRESS');
 
+    Logger.log('CHZ Contract: ' + chzContract);
+
     if (pendingTxs.length > 0) {
       pendingTxs.forEach((tx: Transaction) => {
         this.web3.eth.getTransaction(tx.hash).then((txData: any) => {
           if (txData.blockNumber) {
             tx.status = 'completed';
+            tx.sender_address = txData.from;
             tx.block_height = txData.blockNumber;
             tx.isCHZ = txData.to === chzContract.toLowerCase() ? true : false;
 

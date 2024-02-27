@@ -83,7 +83,7 @@ export class Web3Service implements OnModuleInit, OnModuleDestroy {
           let t = new Transaction();
           t.hash = tx;
           t.block_height = block.number;
-          t.status = 'confirmed';
+          t.status = 'pending';
 
           this.transactionService.createTransaction(t);
         });
