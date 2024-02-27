@@ -20,6 +20,10 @@ export class RunConfigService {
     return this.RunConfigRepository.findOneBy({ key: key });
   }
 
+  async getLatestBlockHeight() {
+    return (await this.findOneConfig('last_fetched_block')).value;
+  }
+
   updateConfig(key: string, updateConfigDto: UpdateRunConfigDto) {
     return this.RunConfigRepository.upsert(
       {

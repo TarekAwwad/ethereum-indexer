@@ -4,6 +4,8 @@ import { TransactionService } from 'src/transaction/transaction.service';
 import { ConfigService } from 'src/config/config.service';
 import { Transaction } from 'src/transaction/entities/transaction.entity';
 import { RunConfigService } from 'src/run-config/run-config.service';
+import { Block } from 'src/block/entities/block.entity';
+import { BlockService } from 'src/block/block.service';
 
 const { Web3 } = require('web3');
 const abiDecoder = require('abi-decoder');
@@ -17,6 +19,7 @@ export class TasksService {
 
   constructor(
     private transactionService: TransactionService,
+    private blockService: BlockService,
     private configService: ConfigService,
     private runConfigService: RunConfigService,
   ) {
@@ -69,11 +72,14 @@ export class TasksService {
     let total = 0;
     const chzContract = this.configService.get('CHZ_CONTRACT_ADDRESS');
 
+    Logger.log('CHZ Contract: ' + chzContract);
+
     if (pendingTxs.length > 0) {
       pendingTxs.forEach((tx: Transaction) => {
         this.web3.eth.getTransaction(tx.hash).then((txData: any) => {
           if (txData.blockNumber) {
             tx.status = 'completed';
+            tx.sender_address = txData.from;
             tx.block_height = txData.blockNumber;
             tx.isCHZ = txData.to === chzContract.toLowerCase() ? true : false;
 

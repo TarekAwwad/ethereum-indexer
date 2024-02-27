@@ -19,4 +19,9 @@ export class BlockService {
 
     return this.blockRepository.save(block);
   }
+
+  getBlockByHeight(height: number) {
+    return this.blockRepository.findOneBy({ height: height });
+  }
+    
 }

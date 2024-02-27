@@ -14,7 +14,7 @@ export class Transaction {
   @Column()
   block_height: number;
 
-  @Column({ type: 'varchar', length: 40, default: DEFAUL_ADDRESS })
+  @Column({ type: 'varchar', length: 42, default: DEFAUL_ADDRESS })
   sender_address: string;
 
   @Column({ enum: ['pending', 'completed'] })

@@ -5,6 +5,7 @@ export class Block {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column({ unique: true })
   @Column({ type: 'varchar', length: 64 })
   hash: string;
 
