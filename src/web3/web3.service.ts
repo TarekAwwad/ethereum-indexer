@@ -62,7 +62,7 @@ export class Web3Service implements OnModuleInit, OnModuleDestroy {
     let startBlock = +this.configService.get('START_BLOCK');
     let endBlock = await this.web3.eth.getBlockNumber();
 
-    console.log('Fetching past blocks from ' + startBlock + ' to ' + endBlock);
+    Logger.log('Fetching past blocks from ' + startBlock + ' to ' + endBlock);
     for (let i = startBlock; i <= endBlock; i++) {
       Logger.log('Fetching block ' + i);
       // check if block exists in db
